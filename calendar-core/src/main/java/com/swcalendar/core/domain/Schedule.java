@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
+@AllArgsConstructor
 public class Schedule {
   private LocalDateTime startAt;
   private LocalDateTime endAt;
