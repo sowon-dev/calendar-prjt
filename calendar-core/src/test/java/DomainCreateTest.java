@@ -1,7 +1,7 @@
 import com.swcalendar.core.domain.Event;
-import com.swcalendar.core.domain.Schedule;
+import com.swcalendar.core.domain.entity.Schedule;
 import com.swcalendar.core.domain.ScheduleType;
-import com.swcalendar.core.domain.User;
+import com.swcalendar.core.domain.entity.User;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

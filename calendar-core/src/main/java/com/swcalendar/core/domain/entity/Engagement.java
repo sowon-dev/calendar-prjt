@@ -1,11 +1,20 @@
-package com.swcalendar.core.domain;
+package com.swcalendar.core.domain.entity;
 
+import com.swcalendar.core.domain.RequestStatus;
+import com.swcalendar.core.domain.ScheduleType;
 import lombok.Getter;
 import javax.persistence.*;
-import java.time.LocalDate;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
+@Table(name = "engagements")
+@Entity
 public class Engagement {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
   @JoinColumn(name = "schedule_id")
   @ManyToOne
   private Schedule schedule;

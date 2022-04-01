@@ -1,5 +1,8 @@
 package com.swcalendar.core.domain;
 
+import com.swcalendar.core.domain.entity.Schedule;
+import com.swcalendar.core.domain.entity.User;
+
 public class Notification {
   private Schedule schedule;
 

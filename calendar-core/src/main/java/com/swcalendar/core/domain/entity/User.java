@@ -1,13 +1,24 @@
-package com.swcalendar.core.domain;
+package com.swcalendar.core.domain.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+@Table(name = "users")
+@Entity
 public class User {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
   private String name;
   private String email;
   private String password; // hashed
