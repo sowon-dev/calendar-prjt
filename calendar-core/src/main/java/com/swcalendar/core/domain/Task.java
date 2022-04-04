@@ -1,30 +1,16 @@
 package com.swcalendar.core.domain;
 import com.swcalendar.core.domain.entity.Schedule;
 import com.swcalendar.core.domain.entity.User;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import javax.persistence.*;
-import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "engagements")
-@Getter
-@NoArgsConstructor
 public class Task {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
 
-  @JoinColumn(name = "schedule_id")
-  @ManyToOne
   private Schedule schedule;
 
-  @JoinColumn(name = "attendee_id")
-  @ManyToOne
-  private User attendee;
+  public Task (Schedule schedule) {
+    this.schedule = schedule;
+  }
 
-  @Enumerated(EnumType.STRING)
-  private RequestStatus status;
-
-  private LocalDateTime createdAt = LocalDateTime.now();
+  public User getWriter() {
+    return this.schedule.getWriter();
+  }
 }

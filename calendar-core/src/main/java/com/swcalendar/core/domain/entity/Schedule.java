@@ -4,6 +4,8 @@ import com.swcalendar.core.domain.Event;
 import com.swcalendar.core.domain.Notification;
 import com.swcalendar.core.domain.ScheduleType;
 import com.swcalendar.core.domain.Task;
+import java.time.LocalDate;
+import java.time.Period;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,12 +14,12 @@ import java.time.LocalDateTime;
 @Builder(access = AccessLevel.PRIVATE)
 @Getter
 @AllArgsConstructor
-@Table(name = "schedules")
+@NoArgsConstructor
+@Setter
 @Entity
-public class Schedule {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+@Table(name = "schedules")
+public class Schedule extends BaseEntity {
+
   private LocalDateTime startAt;
   private LocalDateTime endAt;
   private String title;
@@ -27,31 +29,64 @@ public class Schedule {
   @ManyToOne
   private User writer;
 
-  // OnnToMany 속성은 잘 사용하지않음
   @Enumerated(EnumType.STRING)
   private ScheduleType scheduleType;
 
-  public static Schedule event(Long id, LocalDateTime startAt, LocalDateTime endAt, String title, String description, User writer, ScheduleType scheduleType){
+  public static Schedule event(String title,
+      String description, LocalDateTime startAt,
+      LocalDateTime endAt, User writer) {
     return Schedule.builder()
-        .description(description)
-        .scheduleType(scheduleType.EVENT)
-        .title(title)
-        .endAt(endAt)
         .startAt(startAt)
+        .endAt(endAt)
+        .title(title)
+        .description(description)
         .writer(writer)
+        .scheduleType(ScheduleType.EVENT)
         .build();
   }
 
-//  public Task toTask(){
-//    return new Task(this);
-//  }
+  public static Schedule task(String title, String description, LocalDateTime taskAt,
+      User writer) {
+    return Schedule.builder()
+        .startAt(taskAt)
+        .title(title)
+        .description(description)
+        .writer(writer)
+        .scheduleType(ScheduleType.TASK)
+        .build();
+  }
 
-  public Event toEvent(){
+  public static Schedule notification(String title, LocalDateTime notifyAt, User writer) {
+    return Schedule.builder()
+        .startAt(notifyAt)
+        .title(title)
+        .writer(writer)
+        .scheduleType(ScheduleType.NOTIFICATION)
+        .build();
+  }
+
+  public Task toTask() {
+    return new Task(this);
+  }
+
+  public Event toEvent() {
     return new Event(this);
   }
 
-  public Notification toNotification(){
+  public Notification toNotification() {
     return new Notification(this);
   }
 
+  @Override
+  public String toString() {
+    return "Schedule{" +
+        "id=" + super.getId().toString() +
+        ", startAt=" + startAt +
+        ", endAt=" + endAt +
+        ", title='" + title + '\'' +
+        ", description='" + description + '\'' +
+        ", writer=" + writer +
+        ", scheduleType=" + scheduleType +
+        '}';
+  }
 }
