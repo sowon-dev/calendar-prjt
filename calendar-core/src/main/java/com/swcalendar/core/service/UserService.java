@@ -16,7 +16,10 @@ public class UserService {
 
   @Transactional
   public User create(UserCreateReq req) {
-
+    userRepository.findByEmail(req.getEmail())
+        .ifPresent(u -> {
+          throw new RuntimeException("cannot find user");
+        });
     return userRepository.save(User.builder()
         .name(req.getName())
         .password(req.getPassword())
@@ -27,6 +30,7 @@ public class UserService {
 
   @Transactional
   public Optional<User> findPwMatchUser(String email, String password) {
-    return null;
+    return userRepository.findByEmail(email)
+        .map(u -> u.getPassword().equals(password) ? u : null);
   }
 }
