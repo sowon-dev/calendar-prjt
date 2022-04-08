@@ -1,5 +1,6 @@
 package com.swcalendar.core.domain.entity;
 
+import com.swcalendar.core.util.Encryptor;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
@@ -27,5 +28,10 @@ public class User extends BaseEntity {
     this.email = email;
     this.password = password;
     this.birthday = birthday;
+  }
+
+  // Strategy 패턴 -> 객체지향
+  public boolean isMatch(Encryptor encryptor, String password){
+    return encryptor.isMatch(password, this.password);
   }
 }
