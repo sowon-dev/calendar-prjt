@@ -25,7 +25,7 @@ public class UserService {
         });
     return userRepository.save(User.builder()
         .name(req.getName())
-        .password(req.getPassword())
+        .password(bcryptEncryptor.encrypt(req.getPassword()))
         .email(req.getEmail())
         .birthday(req.getBirthday())
         .build());
@@ -37,7 +37,7 @@ public class UserService {
     return userRepository.findByEmail(email)
         .map(u -> bcryptEncryptor.isMatch(u.getPassword(), password) ? u : null);
 */
-    // 위를 Strategy 패턴 사용해서 -> 객체지향스럽게 바꿔보자
+    // 위를 Strategy 패턴 사용해서 -> 객체지향스럽게 바꿔보자 + 유저테스트도 용이해짐
     return userRepository.findByEmail(email).map(u -> u.isMatch(bcryptEncryptor, password)? u : null);
   }
 }

@@ -1,3 +1,5 @@
+package core;
+
 import com.swcalendar.core.domain.Event;
 import com.swcalendar.core.domain.entity.Schedule;
 import com.swcalendar.core.domain.ScheduleType;
