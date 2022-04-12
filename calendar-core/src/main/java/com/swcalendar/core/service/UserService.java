@@ -40,4 +40,8 @@ public class UserService {
     // 위를 Strategy 패턴 사용해서 -> 객체지향스럽게 바꿔보자 + 유저테스트도 용이해짐
     return userRepository.findByEmail(email).map(u -> u.isMatch(bcryptEncryptor, password)? u : null);
   }
+
+  public User getOrThrowById(Long id) {
+    return userRepository.findById(id).orElseThrow(() -> new RuntimeException("no user."));
+  }
 }

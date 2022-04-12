@@ -13,3 +13,9 @@
 - jbcrypt(암호화)
 - lombok
 - junit(테스트)
+
+## server run
+
+```html
+$ docker-compose up
+```

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @EntityScan("com.swcalendar.core")
 @EnableJpaRepositories("com.swcalendar.core")
 @RestController
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.swcalendar.core")
 public class ApiApplication {
   private final SimpleEntityRepository repo;
 
@@ -25,12 +25,12 @@ public class ApiApplication {
     this.repo = repo;
   }
 
-  @GetMapping
+/*  @GetMapping
   public List<SimpleEntity> finaAll(){
     return repo.findAll();
-  }
+  }*/
 
-  @PostMapping
+  @PostMapping("/save")
   public SimpleEntity saveTest(){
     final SimpleEntity e = new SimpleEntity();
     e.setName("나혜석");
